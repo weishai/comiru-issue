@@ -1,7 +1,7 @@
 {
   "name": "comiru-issue",
   "version": "1.0.0",
-  "description": "## Requirement Notes 1. Use ES5 to code in this issue project 2. Do not use any UI library 3. Run on http://localhost/ or file:///",
+  "description": "comiru issue project",
   "main": "index.js",
   "directories": {
     "doc": "docs"
@@ -14,5 +14,12 @@
     "url": "https://e.coding.net/weishai/comiru-issue/comiru-issue.git"
   },
   "author": "weishai",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^7.16.0",
+    "eslint-config-prettier": "^7.1.0",
+    "eslint-plugin-es5": "^1.5.0",
+    "eslint-plugin-prettier": "^3.3.0",
+    "prettier": "^2.2.1"
+  }
 }
