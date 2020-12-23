@@ -1,0 +1,18 @@
+{
+  "name": "comiru-issue",
+  "version": "1.0.0",
+  "description": "## Requirement Notes 1. Use ES5 to code in this issue project 2. Do not use any UI library 3. Run on http://localhost/ or file:///",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://e.coding.net/weishai/comiru-issue/comiru-issue.git"
+  },
+  "author": "weishai",
+  "license": "ISC"
+}
