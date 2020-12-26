@@ -15,6 +15,8 @@ module.exports = {
   plugins: ['es5'],
 
   rules: {
-    'prettier/prettier': 'error'
+    'prettier/prettier': 'error',
+    // custom
+    curly: ['error']
   }
 }

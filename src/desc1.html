@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Description 1</title>
+  <link rel="stylesheet" href="./css/reset.css">
+  <link rel="stylesheet" href="./css/taginput.css">
+  <style>
+    .demobox{
+      padding: 16px 20px;
+      max-width: 600px;
+    }
+  </style>
+</head>
+<body>
+  <div class="demobox">
+    <input class="desc1-input" type="text" placeholder="input tag">
+  </div>
+
+  <script src="./js/helpers.js"></script>
+  <script src="./js/tagInput.js"></script>
+  <script>
+    (function() {
+      var input = document.querySelector('.desc1-input')
+      var tagInput = new TagInput(input, {
+        suggestions: {
+          src: [
+            'test1a',
+            'test2b',
+            'test3c',
+            'test4d',
+            'test5dd',
+          ]
+        }
+      })
+
+    })()
+  </script>
+</body>
+</html>

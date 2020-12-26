@@ -1,0 +1,51 @@
+
+.tag-input{
+  position: relative;
+  border: 1px solid #ddd;
+  display: flex;
+}
+
+.tag-input > input{
+  border: none;
+  outline: none;
+  padding: 0;
+  margin-left: 12px;
+  color: #333;
+  font-size: 14px;
+  appearance: none;
+  height: 32px;
+  flex-grow: 1;
+  background-color: transparent;
+}
+
+.tag-input > input::placeholder {
+  color: #aaa;
+}
+
+/* dropdown */
+.tagInput-dropdown{
+  position: absolute;
+  width: 100%;
+  top: 32px;
+  left: -1px;
+  border: 1px solid #ddd;
+  border-top: none;
+}
+
+.tagInput-dropdown .dropdown-item{
+  padding: 0 12px;
+  height: 32px;
+}
+
+.tagInput-dropdown .dropdown-item:hover{
+  background-color: #efefef;
+}
+
+.tagInput-dropdown .dropdown-item .item-text {
+  line-height: 32px;
+  color: #888;
+}
+
+.tagInput-dropdown .dropdown-item:hover  .item-text{
+  color: #08c;
+}
