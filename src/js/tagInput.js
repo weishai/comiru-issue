@@ -40,7 +40,8 @@
 
     // tags data
     this.tags = {
-      data: []
+      data: [],
+      indexs: []
     }
 
     // init
@@ -79,11 +80,15 @@
 
       this.suggestList.data = newData.slice()
 
-      console.log('renderSuggestList: render')
+      // console.log('renderSuggestList: render')
 
       var items = newData.map(function (item) {
         return (
-          '<div class="dropdown-item"><span class="item-text">' +
+          '<div class="dropdown-item" data-index="' +
+          item.index +
+          '" data-value="' +
+          item.value +
+          '"><span class="item-text">' +
           item.value +
           '</span></div>'
         )
@@ -132,9 +137,12 @@
         'ontouchend' in document.documentElement === true ? 'touchend' : 'click'
 
       this.onDropdownTouch = function (e) {
+        var dataset = e.target.dataset
+
         if (e.target.className.indexOf('dropdown-item') != -1) {
           that.updateTags('add', {
-            value: e.target.textContent
+            index: dataset.index,
+            value: dataset.value
           })
         }
       }
@@ -175,9 +183,15 @@
     },
 
     updateTags: function (action, tag) {
+      var repeatIndex = this.tags.indexs.indexOf(tag.index)
+
       switch (action) {
         case 'add':
-          this.tags.data.push(tag)
+          // check repeat
+          if (repeatIndex == -1) {
+            this.tags.data.push(tag)
+            this.tags.indexs.push(tag.index)
+          }
 
           break
         default:

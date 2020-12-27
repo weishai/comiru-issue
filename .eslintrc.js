@@ -17,6 +17,7 @@ module.exports = {
   rules: {
     'prettier/prettier': 'error',
     // custom
-    curly: ['error']
+    curly: ['error'],
+    'no-console': ['warn', { allow: ['warn', 'error']}]
   }
 }
