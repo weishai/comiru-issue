@@ -25,6 +25,7 @@
       // root
       // input
       // dropdown
+      // tags
     }
 
     // tags suggest data
@@ -37,6 +38,11 @@
       data: null
     }
 
+    // tags data
+    this.tags = {
+      data: []
+    }
+
     // init
     this.renderInput(input)
     this.bindEvents()
@@ -47,16 +53,21 @@
       input.outerHTML =
         '<div class="tag-input"><span class="tags"></span>' +
         input.outerHTML +
+        '<div class="tagInput-dropdown"></div>' +
         '</div>'
 
-      this.DOM.root = document.querySelector('.tag-input')
-      this.DOM.input = document.querySelector('.tag-input > input')
+      var root = document.querySelector('.tag-input')
+
+      this.DOM.root = root
+      this.DOM.input = root.querySelector('input')
+      this.DOM.dropdown = root.querySelector('.tagInput-dropdown')
+      this.DOM.tags = root.querySelector('.tags')
     },
 
     renderSuggestList: function (newData) {
       // no suggestions
       if (newData.length < 1) {
-        if (this.DOM.dropdown && this.suggestList.data) {
+        if (this.suggestList.data) {
           this.DOM.dropdown.innerHTML = ''
         }
       }
@@ -66,6 +77,10 @@
         return
       }
 
+      this.suggestList.data = newData.slice()
+
+      console.log('renderSuggestList: render')
+
       var items = newData.map(function (item) {
         return (
           '<div class="dropdown-item"><span class="item-text">' +
@@ -74,18 +89,19 @@
         )
       })
 
-      if (!this.DOM.dropdown) {
-        var list = _parseHTML('<div class="tagInput-dropdown"></div>')[0]
-
-        this.DOM.root.appendChild(list)
-        this.DOM.dropdown = list
-      }
-
       this.DOM.dropdown.innerHTML = items.join('')
     },
 
+    renderTags: function (newData) {
+      var items = newData.map(function (item) {
+        return '<span class="tag">' + item.value + '</span>'
+      })
+
+      this.DOM.tags.innerHTML = items.join('')
+    },
+
     compareSuggestData: function (newData, data) {
-      if (!data) {
+      if (!data || newData.length != data.length) {
         return false
       }
 
@@ -103,6 +119,7 @@
     bindEvents: function () {
       var that = this
       var input = that.DOM.input
+      var dropdown = that.DOM.dropdown
 
       that.onInput = _debouncer(function () {
         that.checkSuggestions(input.value)
@@ -110,6 +127,20 @@
 
       input.removeEventListener('input', that.onInput)
       input.addEventListener('input', that.onInput)
+
+      var clickEvent =
+        'ontouchend' in document.documentElement === true ? 'touchend' : 'click'
+
+      this.onDropdownTouch = function (e) {
+        if (e.target.className.indexOf('dropdown-item') != -1) {
+          that.updateTags('add', {
+            value: e.target.textContent
+          })
+        }
+      }
+
+      dropdown.removeEventListener(clickEvent, this.onDropdownTouch)
+      dropdown.addEventListener(clickEvent, this.onDropdownTouch)
     },
 
     checkSuggestions: function (value) {
@@ -141,6 +172,19 @@
       }
 
       return results
+    },
+
+    updateTags: function (action, tag) {
+      switch (action) {
+        case 'add':
+          this.tags.data.push(tag)
+
+          break
+        default:
+          break
+      }
+
+      this.renderTags(this.tags.data)
     }
   }
 
