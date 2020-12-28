@@ -1,4 +1,4 @@
-/* global _debouncer, _parseHTML, _extend */
+/* global _debouncer, _delegate, _extend */
 
 ;(function (window) {
   'use strict'
@@ -74,7 +74,12 @@
       }
 
       // only render when data update
-      if (this.compareSuggestData(newData, this.suggestList.data)) {
+      if (
+        this.DOM.dropdown.className.indexOf('show') != -1 &&
+        this.compareSuggestData(newData, this.suggestList.data)
+      ) {
+        // console.log('renderSuggestList no render')
+
         return
       }
 
@@ -95,14 +100,57 @@
       })
 
       this.DOM.dropdown.innerHTML = items.join('')
+      this.DOM.dropdown.classList.add('show')
     },
 
     renderTags: function (newData) {
       var items = newData.map(function (item) {
-        return '<span class="tag">' + item.value + '</span>'
+        return (
+          '<span class="tag" data-index="' +
+          item.index +
+          '" data-value="' +
+          item.value +
+          '"><span class="tag-text">' +
+          item.value +
+          '</span><span class="tag-close">x</span></span>'
+        )
       })
 
       this.DOM.tags.innerHTML = items.join('')
+    },
+
+    bindEvents: function () {
+      var that = this
+      var input = that.DOM.input
+      var dropdown = that.DOM.dropdown
+      var tags = that.DOM.tags
+      var clickEvent =
+        'ontouchend' in document.documentElement === true ? 'touchend' : 'click'
+
+      // use debounce optimize input
+      that.onInput = _debouncer(function () {
+        that.checkSuggestions(input.value)
+      })
+
+      input.addEventListener('input', that.onInput)
+
+      _delegate(dropdown, clickEvent, '.dropdown-item', function (e) {
+        var target = this
+
+        that.updateTags('add', {
+          index: +target.dataset.index,
+          value: target.dataset.value
+        })
+      })
+
+      _delegate(tags, clickEvent, '.tag-close', function (e) {
+        var tagTarget = this.parentNode
+
+        that.updateTags('remove', {
+          index: +tagTarget.dataset.index,
+          value: tagTarget.dataset.value
+        })
+      })
     },
 
     compareSuggestData: function (newData, data) {
@@ -121,38 +169,16 @@
       return true
     },
 
-    bindEvents: function () {
-      var that = this
-      var input = that.DOM.input
-      var dropdown = that.DOM.dropdown
-
-      that.onInput = _debouncer(function () {
-        that.checkSuggestions(input.value)
-      })
-
-      input.removeEventListener('input', that.onInput)
-      input.addEventListener('input', that.onInput)
-
-      var clickEvent =
-        'ontouchend' in document.documentElement === true ? 'touchend' : 'click'
-
-      this.onDropdownTouch = function (e) {
-        var dataset = e.target.dataset
-
-        if (e.target.className.indexOf('dropdown-item') != -1) {
-          that.updateTags('add', {
-            index: dataset.index,
-            value: dataset.value
-          })
-        }
-      }
-
-      dropdown.removeEventListener(clickEvent, this.onDropdownTouch)
-      dropdown.addEventListener(clickEvent, this.onDropdownTouch)
-    },
-
     checkSuggestions: function (value) {
+      var that = this
       var suggestData = this.search(this.suggestions.src, value)
+
+      // filter selected tag
+      if (that.tags.indexs.length > 0) {
+        suggestData = suggestData.filter(function (item) {
+          return that.tags.indexs.indexOf(item.index) == -1
+        })
+      }
 
       this.renderSuggestList(suggestData)
     },
@@ -183,14 +209,27 @@
     },
 
     updateTags: function (action, tag) {
-      var repeatIndex = this.tags.indexs.indexOf(tag.index)
+      var targetIndex = this.tags.indexs.indexOf(tag.index)
 
       switch (action) {
         case 'add':
           // check repeat
-          if (repeatIndex == -1) {
+          if (targetIndex == -1) {
             this.tags.data.push(tag)
             this.tags.indexs.push(tag.index)
+
+            this.DOM.input.value = ''
+            this.DOM.input.focus()
+            this.DOM.dropdown.classList.remove('show')
+          }
+
+          break
+        case 'remove':
+          if (targetIndex != -1) {
+            this.tags.data.splice(targetIndex, 1)
+            this.tags.indexs.splice(targetIndex, 1)
+
+            this.DOM.input.focus()
           }
 
           break

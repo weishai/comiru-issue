@@ -143,6 +143,28 @@
     }
   }
 
+  window._delegate = function (element, type, selector, handler) {
+    var useCapture = type === 'blur' || type === 'focus'
+
+    element.addEventListener(
+      type,
+      function (e) {
+        for (
+          var target = e.target;
+          target && target != this;
+          target = target.parentNode
+        ) {
+          if (target.matches(selector)) {
+            handler.call(target, e)
+
+            break
+          }
+        }
+      },
+      useCapture
+    )
+  }
+
   window._debouncer = function (cb, delay) {
     var inDebounce
 
