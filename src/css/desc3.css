@@ -1,0 +1,23 @@
+
+.app{
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.head{
+
+}
+
+.search-bar{
+  padding: 12px;
+  display: flex;
+}
+.search-bar .tag-input{
+  border-top-left-radius: ;
+}
+.search-bar .btn-search{
+  width: 48px;
+  height: 40px;
+  background: url(../img/icon-search.png) no-repeat center #4284f7;
+  background-size: 24px 24px;
+}
