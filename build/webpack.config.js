@@ -22,7 +22,7 @@ module.exports = {
 
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, '../src', 'desc1.html')
+      template: path.resolve(__dirname, '../src', 'desc2.html')
     })
   ],
   module: {
