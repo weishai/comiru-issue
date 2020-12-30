@@ -122,7 +122,11 @@
     },
 
     closeSuggestList: function () {
-      this.DOM.dropdown.innerHTML = ''
+      if (this.DOM.dropdown.className.indexOf('show') == -1) {
+        return
+      }
+
+      // this.DOM.dropdown.innerHTML = ''
       this.DOM.dropdown.classList.remove('show')
       this.DOM.root.classList.remove('dropdown-active')
     },
@@ -142,19 +146,28 @@
 
       input.addEventListener('input', that.onInput)
 
-      _delegate(dropdown, clickEvent, '.dropdown-item', function (e) {
+      input.addEventListener('blur', function () {
+        that.closeSuggestList()
+      })
+
+      // fix input blur and dropdown item click conflict
+      dropdown.addEventListener('mousedown', function (e) {
+        e.preventDefault()
+      })
+
+      _delegate(dropdown, clickEvent, '.dropdown-item', function () {
         var target = this
 
         if (that.sets.mode == 'search') {
           that.DOM.input.value = target.dataset.value
-
-          that.closeSuggestList()
         } else {
           that.updateTags('add', {
             index: +target.dataset.index,
             value: target.dataset.value
           })
         }
+
+        that.closeSuggestList()
       })
 
       _delegate(tags, clickEvent, '.tag-close', function () {
@@ -234,8 +247,6 @@
 
             this.DOM.input.value = ''
             this.DOM.input.focus()
-
-            this.closeSuggestList()
           }
 
           break

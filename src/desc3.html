@@ -16,7 +16,22 @@
         <div class="btn-search"></div>
       </div>
     </div>
-    <div class="main"></div>
+    <div class="main">
+      <div class="news-list">
+        <a class="newsbox">
+          <div class="box-main">
+            <h3 class="box-title">JavaScript - 【Jquery】イベント「click」と「blur」が同時に</h3>
+            <p class="box-content">clickではなく、mousedownではだめですか？ $('.kana').on('mousedown', function(){ $('#kanahenkan').val($(this).text()); });</p>
+            <div class="box-sub">
+              <span class="box-time">2个月前</span>
+            </div>
+          </div>
+          <div class="box-cover">
+            <img class="lazyload" data-src="https://cdn.pixabay.com/photo/2020/10/17/14/24/river-5662292__340.jpg" alt="">
+          </div>
+        </a>
+      </div>
+    </div>
   </div>
 
   <script src="./js/helpers.js"></script>
@@ -26,6 +41,7 @@
   <script src="./js/lazyLoad.js"></script>
   <script>
     (function () {
+      // Search Bar
       var input = document.querySelector('.search-input')
       var searchInput = new TagInput(input, {
         mode: 'search',
@@ -41,6 +57,9 @@
           ]
         }
       })
+
+      // Images lazy load
+      new LazyLoad()
       
     })()
   </script>

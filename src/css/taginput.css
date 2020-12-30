@@ -67,9 +67,10 @@
   position: absolute;
   width: 100%;
   top: 100%;
+  z-index: 1000;
   left: -1px;
   border: 1px solid #ddd;
-  border-top: none;
+  background-color: #fff;
   display: none;
   overflow: hidden;
 }
