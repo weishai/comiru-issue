@@ -13,11 +13,36 @@
   display: flex;
 }
 .search-bar .tag-input{
-  border-top-left-radius: ;
+  flex: 1;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
 }
+.search-bar .tag-input.dropdown-active{
+  border-bottom-left-radius: 0;
+}
+.search-bar .tag-input > input{
+  margin-left: 20px;
+}
+.search-bar .tag-input-dropdown{
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  padding-bottom: 12px;
+}
+.search-bar .tag-input-dropdown .dropdown-item{
+  padding: 0 20px;
+}
+
 .search-bar .btn-search{
-  width: 48px;
+  width: 16px;
   height: 40px;
   background: url(../img/icon-search.png) no-repeat center #4284f7;
   background-size: 24px 24px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  padding-right: 32px;
+  cursor: pointer;
+}
+.search-bar .btn-search:active,
+.search-bar .btn-search:hover {
+  opacity: 0.5;
 }

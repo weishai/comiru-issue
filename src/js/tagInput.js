@@ -13,12 +13,13 @@
     }
 
     var defaultSets = {
+      mode: 'tag',
       suggestions: {
         src: []
       }
     }
 
-    sets = _extend({}, defaultSets, sets)
+    this.sets = _extend({}, defaultSets, sets)
 
     // Store TagInput DOM elements
     this.DOM = {
@@ -30,7 +31,7 @@
 
     // tags suggest data
     this.suggestions = {
-      src: sets.suggestions.src
+      src: this.sets.suggestions.src
     }
 
     // suggestList config
@@ -54,23 +55,23 @@
       input.outerHTML =
         '<div class="tag-input"><span class="tags"></span>' +
         input.outerHTML +
-        '<div class="tagInput-dropdown"></div>' +
+        '<div class="tag-input-dropdown"></div>' +
         '</div>'
 
       var root = document.querySelector('.tag-input')
 
       this.DOM.root = root
       this.DOM.input = root.querySelector('input')
-      this.DOM.dropdown = root.querySelector('.tagInput-dropdown')
+      this.DOM.dropdown = root.querySelector('.tag-input-dropdown')
       this.DOM.tags = root.querySelector('.tags')
     },
 
     renderSuggestList: function (newData) {
       // no suggestions
       if (newData.length < 1) {
-        if (this.suggestList.data) {
-          this.DOM.dropdown.innerHTML = ''
-        }
+        this.closeSuggestList()
+
+        return
       }
 
       // only render when data update
@@ -101,6 +102,7 @@
 
       this.DOM.dropdown.innerHTML = items.join('')
       this.DOM.dropdown.classList.add('show')
+      this.DOM.root.classList.add('dropdown-active')
     },
 
     renderTags: function (newData) {
@@ -117,6 +119,12 @@
       })
 
       this.DOM.tags.innerHTML = items.join('')
+    },
+
+    closeSuggestList: function () {
+      this.DOM.dropdown.innerHTML = ''
+      this.DOM.dropdown.classList.remove('show')
+      this.DOM.root.classList.remove('dropdown-active')
     },
 
     bindEvents: function () {
@@ -137,13 +145,19 @@
       _delegate(dropdown, clickEvent, '.dropdown-item', function (e) {
         var target = this
 
-        that.updateTags('add', {
-          index: +target.dataset.index,
-          value: target.dataset.value
-        })
+        if (that.sets.mode == 'search') {
+          that.DOM.input.value = target.dataset.value
+
+          that.closeSuggestList()
+        } else {
+          that.updateTags('add', {
+            index: +target.dataset.index,
+            value: target.dataset.value
+          })
+        }
       })
 
-      _delegate(tags, clickEvent, '.tag-close', function (e) {
+      _delegate(tags, clickEvent, '.tag-close', function () {
         var tagTarget = this.parentNode
 
         that.updateTags('remove', {
@@ -220,7 +234,8 @@
 
             this.DOM.input.value = ''
             this.DOM.input.focus()
-            this.DOM.dropdown.classList.remove('show')
+
+            this.closeSuggestList()
           }
 
           break
