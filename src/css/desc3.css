@@ -59,27 +59,76 @@
 }
 
 .newsbox{
-  padding: 12px;
-  display: flex;
+  display: block;
+  padding: 16px;
   border: 1px solid #ededed;
   border-radius: 12px;
+}
+
+.newsbox:hover{
   text-decoration: none;
+}
+
+.newsbox .box-user{
+  display: flex;
+  align-items: center;
+  padding: 0 0 6px;
+}
+
+.newsbox .box-icon{
+  height: 20px;
+  width: 20px;
+  margin: 0 6px 0 0;
+}
+
+.newsbox .box-name{
+  font-size: 14px;
+  color: #333;
+}
+
+.newsbox .box-body{
+  display: flex;
 }
 
 .newsbox .box-main{
   
 }
 
-.newsbox .box-cover > img{
-  width: 128px;
-  height: 128px;
+.newsbox .box-cover{
+  padding: 0 0 0 18px;
 }
+
+.newsbox .box-cover > img{
+  display: block;
+  width: 100px;
+  height: 100px;
+  border-radius: 6px;
+}
+
 .newsbox .box-title{
-  font-size: 16px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  text-decoration: none;
+}
+
+.newsbox .box-title:hover{
+  text-decoration: underline #333;
 }
 
 .newsbox .box-content{
-  font-size: 13px;
+  padding: 6px 0;
+  font-size: 16px;
+  color: #666;
+  text-decoration: none;
 }
-.newsbox .box-sub{}
-.newsbox .box-time{}
+
+.newsbox .box-foot{
+  padding: 8px 0 0;
+}
+
+.newsbox .box-time{
+  color: #888;
+  font-size: 13px;
+  line-height: 1;
+}

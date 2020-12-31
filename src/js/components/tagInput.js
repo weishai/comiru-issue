@@ -15,7 +15,8 @@
     var defaultSets = {
       mode: 'tag',
       suggestions: {
-        src: []
+        src: [],
+        max: 10
       }
     }
 
@@ -205,6 +206,10 @@
         suggestData = suggestData.filter(function (item) {
           return that.tags.indexs.indexOf(item.index) == -1
         })
+      }
+
+      if (this.sets.suggestions.max) {
+        suggestData = suggestData.slice(0, this.sets.suggestions.max)
       }
 
       this.renderSuggestList(suggestData)

@@ -18,50 +18,35 @@
     </div>
     <div class="main">
       <div class="news-list">
-        <a class="newsbox">
-          <div class="box-main">
-            <h3 class="box-title">JavaScript - 【Jquery】イベント「click」と「blur」が同時に</h3>
-            <p class="box-content">clickではなく、mousedownではだめですか？ $('.kana').on('mousedown', function(){ $('#kanahenkan').val($(this).text()); });</p>
-            <div class="box-sub">
-              <span class="box-time">2个月前</span>
+        <a class="newsbox" href="javascript:;">
+          <div class="box-body">
+            <div class="box-main">
+              <div class="box-user">
+                <img class="box-icon lazyload" data-src="https://cdn.pixabay.com/photo/2017/08/11/01/37/back-to-school-2629361__340.jpg" alt="">
+                <span class="box-name">Sankebiz</span>
+              </div>
+              <h3 class="box-title">JavaScript - 【Jquery】イベント「click」と「blur」が同時にclickではなく、mousedownではだめですか？</h3>
+              <!-- <p class="box-content">clickではなく、mousedownではだめですか？ $('.kana').on('mousedown', function(){ $('#kanahenkan').val($(this).text()); });</p> -->
+            </div>
+            <div class="box-cover">
+              <img class="lazyload" data-src="https://cdn.pixabay.com/photo/2020/10/17/14/24/river-5662292__340.jpg" alt="">
             </div>
           </div>
-          <div class="box-cover">
-            <img class="lazyload" data-src="https://cdn.pixabay.com/photo/2020/10/17/14/24/river-5662292__340.jpg" alt="">
+          <div class="box-foot">
+            <span class="box-time">2个月前</span>
           </div>
         </a>
       </div>
     </div>
   </div>
 
-  <script src="./js/helpers.js"></script>
-  <script src="./js/tagInput.js"></script>
+  <!-- Mock data -->
+  <script src="./js/utils/mock.js"></script>
+  <script src="./js/utils/helpers.js"></script>
+  <script src="./js/components/tagInput.js"></script>
   <!-- lazyLoad.js: IntersectionObserver polyfill support for IE -->
-  <script src="./js/intersection-observer-polyfill.js"></script>
-  <script src="./js/lazyLoad.js"></script>
-  <script>
-    (function () {
-      // Search Bar
-      var input = document.querySelector('.search-input')
-      var searchInput = new TagInput(input, {
-        mode: 'search',
-        suggestions: {
-          src: [
-            'test1a',
-            'test2b',
-            'test3c',
-            'test4d',
-            'test5dd',
-            'test5ddsjdfiowfjeofjwoefjwoj',
-            'toqpioqieurofwueriooweoiurwoieuroiw',
-          ]
-        }
-      })
-
-      // Images lazy load
-      new LazyLoad()
-      
-    })()
-  </script>
+  <script src="./js/components/intersection-observer-polyfill.js"></script>
+  <script src="./js/components/lazyLoad.js"></script>
+  <script src="./js/page-desc3/app.js"></script>
 </body>
 </html>

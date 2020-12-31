@@ -57,7 +57,7 @@
   letter-spacing: 0;
 }
 
-.tags .tag-close:hover,
+.tags .tag-close:hover, 
 .tags .tag-close:active{
   opacity: 0.5;
 }
