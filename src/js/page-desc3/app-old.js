@@ -11,6 +11,10 @@
   function NewsList() {
     this.page = 1
 
+    this.DOM = {
+      list: document.querySelector('.news-list')
+    }
+
     this.init()
   }
 
@@ -28,6 +32,8 @@
 
       // Images lazy load
       new LazyLoad()
+
+      this.fetchNews(this.page)
     },
 
     fetchNews: function (page) {
@@ -59,11 +65,35 @@
     },
 
     renderNews: function (data, total) {
-      
+      var items = data.map(function (item) {
+        /* eslint-disable */
+        var html =
+          '<a class="newsbox"href="javascript:;">' +
+            '<div class="box-body">' +
+              '<div class="box-main">' +
+                '<div class="box-user">' +
+                  '<img class="box-icon lazyload" data-src="'+item.icon+'" alt="">' +
+                  '<span class="box-name">'+item.name+'</span>'+
+                '</div>'+
+                '<h3 class="box-title">'+item.title+'</h3>'+
+              '</div>'+
+              '<div class="box-cover">'+
+                '<img class="lazyload" data-src="'+item.cover+'" alt="">'+
+              '</div>'+
+            '</div>'+
+            '<div class="box-foot">'+
+              '<span class="box-time">'+item.time+'</span>' +
+            '</div>'+
+          '</a>'
+        /* eslint-enable */
+
+        return html
+      })
+
+      this.DOM.list.innerHTML = items
     }
   }
 
   /* Page Init */
-
   new NewsList()
 })()

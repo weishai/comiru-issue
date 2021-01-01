@@ -1,13 +1,23 @@
-/* global app */
+/* global MVVM */
 
 ;(function () {
   'use strict'
 
-  function NewsList() {
-    this.model = new app.Model()
-    this.view = new app.View()
-    this.controller = new app.Controller(this.model, this.view)
-  }
+  new MVVM({
+    data: {
+      page: 1,
+      list: [],
+      keyword: null
+    },
 
-  new NewsList()
+    methods: {
+      nextPage: function () {
+        
+      }
+    },
+
+    init: function () {
+      
+    }
+  })
 })()
