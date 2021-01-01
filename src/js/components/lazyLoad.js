@@ -8,9 +8,9 @@
       selector: '.lazyload'
     }
 
-    sets = _extend({}, defaultSets, sets)
+    this.sets = _extend({}, defaultSets, sets)
 
-    this.imgs = imgs || document.querySelectorAll(sets.selector)
+    this.imgs = imgs || document.querySelectorAll(this.sets.selector)
 
     // IntersectionObserver instance
     this.io = null
@@ -57,6 +57,12 @@
           img.src = img.dataset.src
         }
       })
+    },
+
+    update: function () {
+      this.imgs = document.querySelectorAll(this.sets.selector)
+
+      this.init()
     }
   }
 

@@ -55,12 +55,13 @@
 
 /* News List */
 .news-list{
-  padding: 12px;
+  padding: 12px 12px 0;
 }
 
 .newsbox{
   display: block;
   padding: 16px;
+  margin: 0 0 16px;
   border: 1px solid #ededed;
   border-radius: 12px;
 }
@@ -79,11 +80,17 @@
   height: 20px;
   width: 20px;
   margin: 0 6px 0 0;
+  background-color: #ededed;
 }
 
 .newsbox .box-name{
   font-size: 14px;
   color: #333;
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  min-width: 0;
 }
 
 .newsbox .box-body{
@@ -91,11 +98,12 @@
 }
 
 .newsbox .box-main{
-  
+  min-width: 0;
+  flex: 1;
 }
 
 .newsbox .box-cover{
-  padding: 0 0 0 18px;
+  margin: 0 0 0 18px;
 }
 
 .newsbox .box-cover > img{
@@ -103,6 +111,7 @@
   width: 100px;
   height: 100px;
   border-radius: 6px;
+  background-color: #ededed;
 }
 
 .newsbox .box-title{
@@ -131,4 +140,28 @@
   color: #888;
   font-size: 13px;
   line-height: 1;
+}
+
+/* Pager */
+.pager{
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 12px 32px;
+}
+
+.pager .btn-page{
+  border: 1px solid #ededed;
+  border-radius: 6px;
+  padding: 6px 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  background-color: #fff;
+}
+
+.pager .btn-page:hover,
+.pager .btn-page:active{
+  cursor: pointer;
+  opacity: 0.5;
 }

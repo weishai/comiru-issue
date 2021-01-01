@@ -3,16 +3,44 @@
 ;(function () {
   'use strict'
 
-  // Mock Data for NewsList example
+  /* Mock Data for NewsList example START */
   var dataMock = Mock.mock({
     'suggestions|100-1000': ['@name']
   })
 
+  Mock.mock('/news', function () {
+    var res = Mock.mock({
+      'list|10': [
+        {
+          icon: '@image',
+          name: '@name',
+          cover: '@image',
+          title: '@sentence',
+          time: '@date'
+        }
+      ],
+      'total|50-1000': 1
+    })
+
+    res.list = res.list.map(function (item) {
+      if (item.title.length > 126) {
+        item.title = item.title.slice(0, 126) + '...'
+      }
+
+      return item
+    })
+
+    return res
+  })
+  /* Mock Data for NewsList example END */
+
   function NewsList() {
     this.page = 1
+    this.pageSize = 10
 
     this.DOM = {
-      list: document.querySelector('.news-list')
+      list: document.querySelector('.news-list'),
+      pager: document.querySelector('.pager')
     }
 
     this.init()
@@ -31,7 +59,7 @@
       })
 
       // Images lazy load
-      new LazyLoad()
+      this.LazyLoad = new LazyLoad()
 
       this.fetchNews(this.page)
     },
@@ -40,7 +68,9 @@
       var that = this
       var request = new XMLHttpRequest()
 
-      request.open('GET', 'https://apidomain.com?page=' + page, true)
+      request.open('GET', '/news', true)
+
+      request.setRequestHeader('Content-type', 'json')
 
       request.onload = function () {
         // server error
@@ -50,10 +80,13 @@
           return
         }
 
-        var res = this.response
+        var res = JSON.parse(this.response)
 
         if (!res.errcode) {
-          that.renderNews(res.list, res.total)
+          that.renderNews(res.list)
+          that.renderPager(page, res.total)
+
+          that.page = page
         }
       }
 
@@ -64,7 +97,7 @@
       request.send()
     },
 
-    renderNews: function (data, total) {
+    renderNews: function (data) {
       var items = data.map(function (item) {
         /* eslint-disable */
         var html =
@@ -90,7 +123,23 @@
         return html
       })
 
-      this.DOM.list.innerHTML = items
+      this.DOM.list.innerHTML = items.join('')
+
+      this.LazyLoad.update()
+    },
+
+    renderPager: function (page, total) {
+      var pagerBtns
+
+      if (page > 1) {
+        pagerBtns = '<div class="btn-page">上一页</div>'
+      }
+
+      if (this.pageSize * page < total) {
+        pagerBtns = '<div class="btn-page">下一页</div>'
+      }
+
+      this.DOM.pager.innerHTML = pagerBtns
     }
   }
 
