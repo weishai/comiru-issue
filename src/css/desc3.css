@@ -158,6 +158,8 @@
   align-items: center;
   font-size: 14px;
   background-color: #fff;
+  margin: 0 0 0 12px;
+  user-select:none;
 }
 
 .pager .btn-page:hover,

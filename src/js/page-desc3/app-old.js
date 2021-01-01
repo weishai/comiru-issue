@@ -1,4 +1,4 @@
-/* global TagInput, LazyLoad, Mock */
+/* global TagInput, LazyLoad, Mock, _delegate */
 
 ;(function () {
   'use strict'
@@ -30,6 +30,7 @@
       return item
     })
 
+    console.log('res: ', res)
     return res
   })
   /* Mock Data for NewsList example END */
@@ -61,7 +62,23 @@
       // Images lazy load
       this.LazyLoad = new LazyLoad()
 
+      // Bind events
+      this.bindEvents()
+
       this.fetchNews(this.page)
+    },
+
+    bindEvents: function () {
+      var that = this
+      var pager = this.DOM.pager
+      var clickEvent =
+        'ontouchend' in document.documentElement === true ? 'touchend' : 'click'
+
+      _delegate(pager, clickEvent, '.btn-page', function () {
+        var action = this.dataset.action
+
+        that.goPage(action)
+      })
     },
 
     fetchNews: function (page) {
@@ -83,10 +100,10 @@
         var res = JSON.parse(this.response)
 
         if (!res.errcode) {
+          that.page = page
+
           that.renderNews(res.list)
           that.renderPager(page, res.total)
-
-          that.page = page
         }
       }
 
@@ -95,6 +112,18 @@
       }
 
       request.send()
+    },
+
+    goPage: function (action) {
+      if (action == 'next') {
+        this.page++
+      } else if (action == 'prev') {
+        this.page--
+      }
+
+      this.fetchNews(this.page)
+
+      window.scrollTo(0, 0)
     },
 
     renderNews: function (data) {
@@ -129,14 +158,15 @@
     },
 
     renderPager: function (page, total) {
-      var pagerBtns
+      console.log('renderPager: ', page)
+      var pagerBtns = ''
 
       if (page > 1) {
-        pagerBtns = '<div class="btn-page">上一页</div>'
+        pagerBtns = '<div class="btn-page" data-action="prev">上一页</div>'
       }
 
       if (this.pageSize * page < total) {
-        pagerBtns = '<div class="btn-page">下一页</div>'
+        pagerBtns += '<div class="btn-page" data-action="next">下一页</div>'
       }
 
       this.DOM.pager.innerHTML = pagerBtns
