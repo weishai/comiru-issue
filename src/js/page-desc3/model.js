@@ -7,35 +7,9 @@
       list: [],
       page: 1
     }
-
-    this.listeners = []
   }
 
   Model.prototype = {
-    subscribe: function (listener) {
-      this.listeners.push(listener)
-    },
-
-    notify: function (name, newValue) {
-      for (var i = 0; i < this.listeners.length; i++) {
-        this.listeners[i](name, newValue)
-      }
-    },
-
-    getValue: function (name) {
-      return this.data[name]
-    },
-
-    setValue: function (name, value) {
-      this.data[name] = value
-
-      this.notify(name, value)
-    },
-
-    init: function () {
-      this.fetchList(this.data.page)
-    },
-
     fetchList: function (page) {
       var that = this
       var request = new XMLHttpRequest()

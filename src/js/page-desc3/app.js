@@ -6,9 +6,7 @@
   function NewsList() {
     this.model = new app.Model()
     this.view = new app.View()
-    this.viewmodel = new app.ViewModel(this.model, this.view)
-
-    this.model.init()
+    this.controller = new app.Controller(this.model, this.view)
   }
 
   new NewsList()
