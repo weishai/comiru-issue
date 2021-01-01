@@ -1,4 +1,4 @@
-/* global TagInput, LazyLoad, Mock, _delegate */
+/* global TagInput, LazyLoad, Mock, _delegate, _ajax */
 
 ;(function () {
   'use strict'
@@ -30,7 +30,6 @@
       return item
     })
 
-    console.log('res: ', res)
     return res
   })
   /* Mock Data for NewsList example END */
@@ -38,6 +37,7 @@
   function NewsList() {
     this.page = 1
     this.pageSize = 10
+    this.keyword = ''
 
     this.DOM = {
       list: document.querySelector('.news-list'),
@@ -52,7 +52,7 @@
       // Search Bar input
       var input = document.querySelector('.search-input')
 
-      new TagInput(input, {
+      this.TagInput = new TagInput(input, {
         mode: 'search',
         suggestions: {
           src: dataMock.suggestions
@@ -74,6 +74,12 @@
       var clickEvent =
         'ontouchend' in document.documentElement === true ? 'touchend' : 'click'
 
+      this.TagInput.on('tagAdd', function (e) {
+        var value = e.detail
+
+        that.search(value)
+      })
+
       _delegate(pager, clickEvent, '.btn-page', function () {
         var action = this.dataset.action
 
@@ -83,35 +89,24 @@
 
     fetchNews: function (page) {
       var that = this
-      var request = new XMLHttpRequest()
+      var params = {
+        page: page
+      }
 
-      request.open('GET', '/news', true)
+      if (this.keyword) {
+        params.keyword = this.keyword
+      }
 
-      request.setRequestHeader('Content-type', 'json')
-
-      request.onload = function () {
-        // server error
-        if (this.status < 200 || this.status >= 400) {
-          // handle server error
-
-          return
-        }
-
-        var res = JSON.parse(this.response)
-
-        if (!res.errcode) {
+      _ajax({
+        url: '/news',
+        data: params,
+        onSuccess: function (res) {
           that.page = page
 
           that.renderNews(res.list)
           that.renderPager(page, res.total)
         }
-      }
-
-      request.onerror = function () {
-        // There was a connection error of some sort
-      }
-
-      request.send()
+      })
     },
 
     goPage: function (action) {
@@ -123,7 +118,14 @@
 
       this.fetchNews(this.page)
 
+      // optimize user scan
       window.scrollTo(0, 0)
+    },
+
+    search: function (value) {
+      this.keyword = value
+
+      this.fetchNews(1)
     },
 
     renderNews: function (data) {
@@ -158,7 +160,6 @@
     },
 
     renderPager: function (page, total) {
-      console.log('renderPager: ', page)
       var pagerBtns = ''
 
       if (page > 1) {

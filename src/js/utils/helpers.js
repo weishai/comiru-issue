@@ -143,6 +143,46 @@
     }
   }
 
+  window._ajax = function (opts) {
+    var request = new XMLHttpRequest()
+    var url = opts.url
+    var type = opts.type || 'GET'
+    var contentType = opts.contentType || 'json'
+
+    request.open(type, url, true)
+
+    if (contentType) {
+      request.setRequestHeader('Content-type', contentType)
+    }
+
+    request.onload = function () {
+      opts.onload && opts.onload(this)
+
+      // server error
+      if (this.status < 200 || this.status >= 400) {
+        // handle server error
+
+        return
+      }
+
+      var res = this.response
+
+      if (contentType == 'json') {
+        res = JSON.parse(res)
+      }
+
+      opts.onSuccess && opts.onSuccess(res)
+    }
+
+    request.onerror = function () {
+      // There was a connection error of some sort
+
+      opts.onError && opts.onError(this)
+    }
+
+    request.send()
+  }
+
   window._delegate = function (element, type, selector, handler) {
     var useCapture = type === 'blur' || type === 'focus'
 

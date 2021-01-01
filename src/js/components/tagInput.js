@@ -1,4 +1,4 @@
-/* global _debouncer, _delegate, _extend */
+/* global _debouncer, _delegate, _extend, _eventDispatcher */
 
 ;(function (window) {
   'use strict'
@@ -21,6 +21,8 @@
     }
 
     this.sets = _extend({}, defaultSets, sets)
+
+    _extend(this, _eventDispatcher())
 
     // Store TagInput DOM elements
     this.DOM = {
@@ -158,15 +160,20 @@
 
       _delegate(dropdown, clickEvent, '.dropdown-item', function () {
         var target = this
+        var value = target.dataset.value
 
         if (that.sets.mode == 'search') {
-          that.DOM.input.value = target.dataset.value
+          that.DOM.input.value = value
         } else {
           that.updateTags('add', {
             index: +target.dataset.index,
-            value: target.dataset.value
+            value: value
           })
         }
+
+        that.trigger('tagAdd', {
+          value: value
+        })
 
         that.closeSuggestList()
       })
