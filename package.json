@@ -8,7 +8,8 @@
   },
   "scripts": {
     "dev": "webpack serve --progress --config build/webpack.config.js --mode development",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --progress --config build/webpack.config.js --mode production"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,7 @@
   "author": "weishai",
   "license": "ISC",
   "devDependencies": {
+    "copy-webpack-plugin": "^7.0.0",
     "css-loader": "^5.0.1",
     "eslint": "^7.16.0",
     "eslint-config-prettier": "^7.1.0",
