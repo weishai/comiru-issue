@@ -32,6 +32,10 @@
 
     return res
   })
+
+  Mock.setup({
+    timeout: 400
+  })
   /* Mock Data for NewsList example END */
 
   function NewsList() {
@@ -41,7 +45,9 @@
 
     this.DOM = {
       list: document.querySelector('.news-list'),
-      pager: document.querySelector('.pager')
+      listLoader: document.querySelector('.loader'),
+      pager: document.querySelector('.pager'),
+      btnSearch: document.querySelector('.btn-search')
     }
 
     this.init()
@@ -71,6 +77,7 @@
     bindEvents: function () {
       var that = this
       var pager = this.DOM.pager
+      var btnSearch = this.DOM.btnSearch
       var clickEvent =
         'ontouchend' in document.documentElement === true ? 'touchend' : 'click'
 
@@ -85,6 +92,12 @@
 
         that.goPage(action)
       })
+
+      btnSearch.addEventListener(clickEvent, function () {
+        var value = that.TagInput.DOM.input.value
+
+        that.search(value)
+      })
     },
 
     fetchNews: function (page) {
@@ -97,6 +110,8 @@
         params.keyword = this.keyword
       }
 
+      this.DOM.listLoader.classList.remove('hide')
+
       _ajax({
         url: '/news',
         data: params,
@@ -105,6 +120,8 @@
 
           that.renderNews(res.list)
           that.renderPager(page, res.total)
+
+          that.DOM.listLoader.classList.add('hide')
         }
       })
     },
