@@ -5,29 +5,28 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const path = require('path')
-const devMode = process.env.NODE_ENV == 'development'
 
-module.exports = {
+module.exports = (env, opts) => ({
   context: path.resolve(__dirname, '../'),
 
   entry: {
     vendor: [
+      './src/css/reset.css',
       './src/js/utils/helpers.js',
+      './src/css/taginput.css',
       './src/js/components/tagInput.js',
       './src/js/components/intersection-observer-polyfill.js',
       './src/js/components/lazyLoad.js',
-      './src/css/reset.css',
-      './src/css/taginput.css'
     ],
     desc3: [
+      './src/css/desc3.css',
       './src/js/page-desc3/app.js',
-      './src/css/desc3.css'
     ]
   },
 
   output: {
     path: path.resolve(__dirname, '../dist'),
-    filename: devMode ? './js/[name].js' : './js/[name].[chunkhash].js'
+    filename: opts.mode ? './js/[name].js' : './js/[name].[chunkhash].js'
   },
 
   devServer: {
@@ -39,7 +38,8 @@ module.exports = {
 
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, '../src', 'desc3.html')
+      template: path.resolve(__dirname, '../src', 'desc3.html'),
+      chunks: ['vendor', 'desc3']
     }),
 
     new CopyPlugin({
@@ -52,7 +52,7 @@ module.exports = {
     }),
 
     new MiniCssExtractPlugin({
-      filename: devMode ? './css/[name].css' : './css/[name].[chunkhash].css'
+      filename: opts.mode ? './css/[name].css' : './css/[name].[chunkhash].css'
     })
   ],
 
@@ -79,4 +79,4 @@ module.exports = {
       new CssMinimizerPlugin()
     ]
   }
-}
+})
