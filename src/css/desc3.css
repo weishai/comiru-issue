@@ -241,6 +241,10 @@
 
 /* Mobile */
 @media only screen and (max-width: 600px) {
+  .search-bar .btn-search{
+    background-image: url(../img/icon-search@2x.png);
+  }
+
   .newsbox {
     padding: 12px;
   }

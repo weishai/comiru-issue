@@ -1,6 +1,7 @@
 
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const path = require('path')
 
 module.exports = {
@@ -11,10 +12,13 @@ module.exports = {
       './src/js/utils/helpers.js',
       './src/js/components/tagInput.js',
       './src/js/components/intersection-observer-polyfill.js',
-      './src/js/components/lazyLoad.js'
+      './src/js/components/lazyLoad.js',
+      './src/css/reset.css',
+      './src/css/taginput.css'
     ],
     desc3: [
-      './src/js/page-desc3/app.js'
+      './src/js/page-desc3/app.js',
+      './src/css/desc3.css'
     ]
   },
 
@@ -26,8 +30,8 @@ module.exports = {
   devServer: {
     port: 8081,
     contentBase: path.resolve(__dirname, '../src'),
-    liveReload: true,
-    watchContentBase: true
+    liveReload: true
+    // watchContentBase: true
   },
 
   plugins: [
@@ -40,27 +44,29 @@ module.exports = {
         {
           from: './src/js/utils/mock.js',
           to: 'js/utils/',
-        },
-        {
-          from: './src/css',
-          to: 'css/',
-          info: {
-            minimized: true
-          }
-        },
-        {
-          from: './src/img',
-          to: 'img/'
         }
       ],
+    }),
+
+    new MiniCssExtractPlugin({
+      filename: './css/[name].css'
     })
   ],
+
   module: {
     rules: [
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader']
-      }
+        use: [MiniCssExtractPlugin.loader, 'css-loader']
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          name: 'img/[name].[hash:7].[ext]'
+        }
+    }
     ]
   }
 }
