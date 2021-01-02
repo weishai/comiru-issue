@@ -23,9 +23,12 @@
   <script src="./js/components/tagInput.js"></script>
   <script>
     (function() {
+      /* Mock Data for suggestions example START */
       var dataMock = Mock.mock({
         'suggestions|100-1000': ['@name']
       })
+      /* Mock Data for suggestions example END */
+
       var input = document.querySelector('.desc1-input')
       var tagInput = new TagInput(input, {
         suggestions: {
