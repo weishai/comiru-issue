@@ -38,7 +38,7 @@ module.exports = (env, opts) => ({
 
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, '../src', 'desc3.html'),
+      template: path.resolve(__dirname, '../src', 'tpl-desc3.html'),
       chunks: ['vendor', 'desc3']
     }),
 
