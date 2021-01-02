@@ -18,22 +18,18 @@
     <input class="desc1-input" type="text" placeholder="input tag">
   </div>
 
-  <script src="./js/helpers.js"></script>
-  <script src="./js/tagInput.js"></script>
+  <script src="./js/utils/mock.js"></script>
+  <script src="./js/utils/helpers.js"></script>
+  <script src="./js/components/tagInput.js"></script>
   <script>
     (function() {
+      var dataMock = Mock.mock({
+        'suggestions|100-1000': ['@name']
+      })
       var input = document.querySelector('.desc1-input')
       var tagInput = new TagInput(input, {
         suggestions: {
-          src: [
-            'test1a',
-            'test2b',
-            'test3c',
-            'test4d',
-            'test5dd',
-            'test5ddsjdfiowfjeofjwoefjwoj',
-            'toqpioqieurofwueriooweoiurwoieuroiw',
-          ]
+          src: dataMock.suggestions
         }
       })
 

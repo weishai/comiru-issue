@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const path = require('path')
+const devMode = process.env.NODE_ENV == 'development'
 
 module.exports = {
   context: path.resolve(__dirname, '../'),
@@ -26,7 +27,7 @@ module.exports = {
 
   output: {
     path: path.resolve(__dirname, '../dist'),
-    filename: './js/[name].js'
+    filename: devMode ? './js/[name].js' : './js/[name].[chunkhash].js'
   },
 
   devServer: {
@@ -51,7 +52,7 @@ module.exports = {
     }),
 
     new MiniCssExtractPlugin({
-      filename: './css/[name].css'
+      filename: devMode ? './css/[name].css' : './css/[name].[chunkhash].css'
     })
   ],
 

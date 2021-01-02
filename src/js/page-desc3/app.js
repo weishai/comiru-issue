@@ -19,7 +19,7 @@
           time: '@date'
         }
       ],
-      'total|50-1000': 1
+      'total|100-1000': 1
     })
 
     res.list = res.list.map(function (item) {
@@ -64,6 +64,8 @@
           src: dataMock.suggestions
         }
       })
+
+      this.DOM.btnSearch.classList.add('show')
 
       // Images lazy load
       this.LazyLoad = new LazyLoad()

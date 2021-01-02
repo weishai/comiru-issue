@@ -65,11 +65,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	var XHR
 	if (typeof window !== 'undefined') XHR = __webpack_require__(27)
 
-	/*!
-	    Mock - 模拟请求 & 模拟数据
-	    https://github.com/nuysoft/Mock
-	    墨智 mozhi.gyy@taobao.com nuysoft@gmail.com
-	*/
 	var Mock = {
 	    Handler: Handler,
 	    Random: Random,

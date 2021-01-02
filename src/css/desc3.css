@@ -39,6 +39,7 @@
 }
 
 .search-bar .btn-search{
+  display: none;
   width: 16px;
   height: 40px;
   background: url(../img/icon-search.png) no-repeat center #4284f7;
@@ -47,6 +48,10 @@
   border-bottom-right-radius: 20px;
   padding-right: 32px;
   cursor: pointer;
+}
+
+.search-bar .btn-search.show{
+  display: block;
 }
 
 .search-bar .btn-search:active,
