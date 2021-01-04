@@ -36,7 +36,7 @@
           if (entry.isIntersecting) {
             var img = entry.target
 
-            if (img.dataset.src) {
+            if (img.dataset && img.dataset.src) {
               img.src = img.dataset.src
             }
 

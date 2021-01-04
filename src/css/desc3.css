@@ -127,6 +127,7 @@
   text-decoration: none;
 }
 
+.newsbox .box-title:active,
 .newsbox .box-title:hover{
   text-decoration: underline #333;
 }

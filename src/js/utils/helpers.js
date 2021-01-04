@@ -5,6 +5,29 @@
 ;(function (window) {
   'use strict'
 
+  // fix IE 11
+  if (!Element.prototype.matches) {
+    Element.prototype.matches = Element.prototype.msMatchesSelector
+  }
+
+  // fix IE 11
+  if (typeof window.CustomEvent != 'function') {
+    window.CustomEvent = function (event, params) {
+      params = params || { bubbles: false, cancelable: false, detail: null }
+
+      var evt = document.createEvent('CustomEvent')
+
+      evt.initCustomEvent(
+        event,
+        params.bubbles,
+        params.cancelable,
+        params.detail
+      )
+
+      return evt
+    }
+  }
+
   function isObject(obj) {
     var type = Object.prototype.toString.call(obj).split(' ')[1].slice(0, -1)
 
