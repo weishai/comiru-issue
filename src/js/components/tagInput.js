@@ -238,7 +238,11 @@
         if (match) {
           results.push({
             index: index, // use for optimize render
-            match: match,
+            match: {
+              value: match[0],
+              index: match.index,
+              input: match.input
+            },
             value: dataValue
           })
         }
