@@ -6,6 +6,8 @@
 
     this.observe(options.data)
     this.compile(document.querySelector(options.element))
+
+    options.init && options.init()
   }
 
   MVVM.prototype = {
