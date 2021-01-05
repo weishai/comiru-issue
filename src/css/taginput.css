@@ -1,0 +1,99 @@
+
+.tag-input{
+  position: relative;
+  border: 1px solid #ddd;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tag-input > input{
+  border: none;
+  outline: none;
+  padding: 0;
+  margin-left: 10px;
+  color: #333;
+  font-size: 14px;
+  appearance: none;
+  height: 38px;
+  flex-grow: 1;
+  background-color: transparent;
+}
+
+.tag-input > input::placeholder {
+  color: #aaa;
+}
+
+.tags {
+  display: contents;
+}
+
+.tags .tag {
+  margin: 5px 0 0 6px;
+  padding: 0 0 0 8px;
+  height: 26px;
+  line-height: 26px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  background-color: #eee;
+}
+.tags .tag-text {
+  color: #333;
+  font-size: 14px;
+}
+
+.tags .tag-close {
+  cursor: pointer;
+  border: 1px solid #ccc;
+  width: 14px;
+  height: 14px;
+  line-height: 13px;
+  vertical-align: 1px;
+  text-align: center;
+  display: inline-block;
+  border-radius: 14px;
+  color: #aaa;
+  font-size: 13px;
+  margin: 0 6px 0 6px;
+  letter-spacing: 0;
+}
+
+.tags .tag-close:hover, 
+.tags .tag-close:active{
+  opacity: 0.5;
+}
+
+/* dropdown */
+.tag-input-dropdown{
+  position: absolute;
+  width: 100%;
+  top: 100%;
+  z-index: 1000;
+  left: -1px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  display: none;
+  overflow: hidden;
+}
+
+.tag-input-dropdown.show{
+  display: block;
+}
+
+.tag-input-dropdown .dropdown-item{
+  padding: 0 12px;
+  height: 32px;
+  cursor: pointer;
+}
+
+.tag-input-dropdown .dropdown-item:hover{
+  background-color: #efefef;
+}
+
+.tag-input-dropdown .dropdown-item .item-text {
+  line-height: 32px;
+  color: #888;
+}
+
+.tag-input-dropdown .dropdown-item:hover  .item-text{
+  color: #08c;
+}

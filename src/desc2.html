@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <title>Description 2</title>
+  <link rel="stylesheet" href="./css/reset.css">
+  <style>
+    .demobox{
+      padding: 16px 20px;
+      max-width: 600px;
+    }
+
+    .demobox .lazyload{
+      width: 960px;
+      height: 720px;
+      background-color: #ededed;
+    }
+  </style>
+</head>
+<body>
+  <div class="demobox">
+    <img class="lazyload" data-src="https://cdn.pixabay.com/photo/2020/12/16/10/44/cat-5836297_960_720.jpg" alt="">
+    <img class="lazyload" data-src="https://cdn.pixabay.com/photo/2020/10/03/14/54/rock-formations-5623735_960_720.jpg" alt="">
+    <img class="lazyload" data-src="https://cdn.pixabay.com/photo/2020/12/08/17/15/christmas-5815034_960_720.jpg" alt="">
+    <img class="lazyload" data-src="https://cdn.pixabay.com/photo/2020/10/02/13/42/sea-5621174_960_720.jpg" alt="">
+    <img class="lazyload" data-src="https://cdn.pixabay.com/photo/2020/11/24/10/37/osaka-5772121_960_720.jpg" alt="">
+    <img class="lazyload" data-src="https://cdn.pixabay.com/photo/2020/11/22/16/58/road-5767221_960_720.jpg" alt="">
+    <img class="lazyload" data-src="https://cdn.pixabay.com/photo/2020/10/17/14/24/river-5662292_960_720.jpg" alt="">
+  </div>
+
+  <script src="./js/utils/helpers.js"></script>
+  <!-- IntersectionObserver polyfill support for IE -->
+  <script src="./js/components/intersection-observer-polyfill.js"></script>
+  <script src="./js/components/lazyLoad.js"></script>
+  <script>
+    (function () {
+      // auto lazyload img with class 'lazyload'
+      new LazyLoad()
+
+      // specified imgs
+      // new LazyLoad(document.querySelectorAll('.img-lazyload'))
+    })()
+  </script>
+</body>
+</html>
