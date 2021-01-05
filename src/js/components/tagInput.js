@@ -56,13 +56,14 @@
 
   TagInput.prototype = {
     renderInput: function (input) {
-      input.outerHTML =
+      var root = document.createElement(null)
+
+      root.innerHTML =
         '<div class="tag-input"><span class="tags"></span>' +
         input.outerHTML +
-        '<div class="tag-input-dropdown"></div>' +
-        '</div>'
+        '<div class="tag-input-dropdown"></div></div>'
 
-      var root = document.querySelector('.tag-input')
+      input.parentNode.replaceChild(root, input)
 
       this.DOM.root = root
       this.DOM.input = root.querySelector('input')
