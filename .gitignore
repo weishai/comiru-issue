@@ -118,3 +118,4 @@ dist
 # custom
 docs/
 *.pdf
+*.DS_Store
