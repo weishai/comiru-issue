@@ -16,7 +16,8 @@
       mode: 'tag',
       suggestions: {
         src: [],
-        max: 10
+        max: 10,
+        isLoose: false // search mode
       }
     }
 
@@ -206,7 +207,11 @@
 
     checkSuggestions: function (value) {
       var that = this
-      var suggestData = this.search(this.suggestions.src, value)
+      var suggestData = this.search(
+        this.suggestions.src,
+        value,
+        this.sets.suggestions.isLoose
+      )
 
       // filter selected tag
       if (that.tags.indexs.length > 0) {
@@ -222,29 +227,70 @@
       this.renderSuggestList(suggestData)
     },
 
-    search: function (data, keyword) {
+    search: function (data, keyword, isLoose) {
       var results = []
-      var word = keyword.toLowerCase()
+      var word = keyword.toLowerCase().trim()
 
       if (!word) {
         return results
       }
 
+      // console.log('word: ', word)
+
       for (var index = 0; index < data.length; index++) {
         var dataValue = data[index]
-        var pattern = new RegExp(word, 'i')
-        var match = pattern.exec(dataValue)
 
-        if (match) {
-          results.push({
-            index: index, // use for optimize render
-            match: {
-              value: match[0],
-              index: match.index,
-              input: match.input
-            },
-            value: dataValue
-          })
+        // loose mode
+        if (isLoose) {
+          var looseDataValue = dataValue.toLowerCase()
+          var looseWord = word.replace(/\s/g, '')
+          var matchAt = -1
+          var matchPos = 0
+          var matchChar = ''
+
+          for (var j = 0; j < looseDataValue.length; j++) {
+            if (matchPos >= looseWord.length) {
+              break
+            }
+
+            if (looseWord[matchPos] === looseDataValue[j]) {
+              matchChar += looseDataValue[j]
+
+              if (matchAt == -1) {
+                matchAt = j
+              }
+
+              matchPos++
+            }
+          }
+
+          if (matchChar && matchPos == looseWord.length) {
+            results.push({
+              index: index,
+              match: {
+                value: matchChar,
+                index: matchAt,
+                input: dataValue
+              },
+              value: dataValue
+            })
+          }
+        } else {
+          // strict mode
+          var pattern = new RegExp(word, 'i')
+          var match = pattern.exec(dataValue)
+
+          if (match) {
+            results.push({
+              index: index, // use for optimize render
+              match: {
+                value: match[0],
+                index: match.index,
+                input: match.input
+              },
+              value: dataValue
+            })
+          }
         }
       }
 

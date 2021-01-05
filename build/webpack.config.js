@@ -33,8 +33,8 @@ module.exports = (env, opts) => ({
   devServer: {
     port: 8081,
     contentBase: path.resolve(__dirname, '../src'),
-    liveReload: true
-    // watchContentBase: true
+    liveReload: true,
+    watchContentBase: true
   },
 
   plugins: [
