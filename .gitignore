@@ -117,4 +117,4 @@ dist
 
 # custom
 docs/
-.pdf
+*.pdf
