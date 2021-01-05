@@ -154,6 +154,22 @@
         that.closeSuggestList()
       })
 
+      input.addEventListener('keydown', function (e) {
+        var tags = that.tags.data
+
+        switch (e.key) {
+          case 'Delete':
+          case 'Backspace':
+            if (tags.length > 0 && !input.value) {
+              that.updateTags('remove', tags[tags.length - 1])
+            }
+
+            break
+          default:
+            break
+        }
+      })
+
       // fix input blur and dropdown item click conflict
       dropdown.addEventListener('mousedown', function (e) {
         e.preventDefault()
