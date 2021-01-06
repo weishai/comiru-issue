@@ -1,4 +1,4 @@
-/* global _extend, _throttler */
+/* global _extend, _throttler, _isPassiveSupported */
 
 ;(function (window) {
   'use strict'
@@ -51,7 +51,8 @@
         }
       })
 
-      document.addEventListener('scroll', this.onCheckImgs)
+      // use passive optimize mobile scroll
+      document.addEventListener('scroll', this.onCheckImgs, _isPassiveSupported)
 
       this.onCheckImgs()
     },

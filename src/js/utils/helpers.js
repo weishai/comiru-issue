@@ -28,6 +28,23 @@
     }
   }
 
+  /* eslint-disable */
+  // check support passive
+  window._isPassiveSupported = false
+
+  try {
+    window.addEventListener(
+      'test',
+      null,
+      Object.defineProperty({}, 'passive', {
+        get: function () {
+          window._isPassiveSupported = { passive: true }
+        }
+      })
+    )
+  } catch (e) {}
+  /* eslint-enable */
+
   function isObject(obj) {
     var type = Object.prototype.toString.call(obj).split(' ')[1].slice(0, -1)
 
