@@ -16,5 +16,5 @@
 ## Github地址
 > https://github.com/weishai/comiru-issue
 
-## 与第一版提交的Diff查看
+## 查看与第一版提交的Diff
 > https://github.com/weishai/comiru-issue/compare/v1.0...v1.1
