@@ -28,6 +28,7 @@
 }
 
 .tags .tag {
+  display: inline-block;
   margin: 5px 0 0 6px;
   padding: 0 0 0 8px;
   height: 26px;
