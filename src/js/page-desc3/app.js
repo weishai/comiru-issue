@@ -8,7 +8,9 @@
     'suggestions|100-1000': ['@name']
   })
 
-  Mock.mock('/news', function () {
+  Mock.mock('/news', function (options) {
+    var params = options.body
+
     var res = Mock.mock({
       'list|10': [
         {
@@ -22,13 +24,26 @@
       'total|100-1000': 1
     })
 
-    res.list = res.list.map(function (item) {
-      if (item.title.length > 126) {
-        item.title = item.title.slice(0, 126) + '...'
-      }
+    if (params.keyword && params.keyword.value) {
+      var keyword = params.keyword.value
 
-      return item
-    })
+      res.list = res.list.map(function (item) {
+        var type = Mock.Random.pick(['name', 'title'])
+
+        switch (type) {
+          case 'name':
+            item.name = keyword
+            break
+          case 'title':
+            item.title = item.title.replace(/(\w\s)/, ' ' + keyword + ' ')
+            break
+          default:
+            break
+        }
+
+        return item
+      })
+    }
 
     return res
   })

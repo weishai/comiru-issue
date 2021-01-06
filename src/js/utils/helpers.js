@@ -220,7 +220,7 @@
       opts.onError && opts.onError(this)
     }
 
-    request.send()
+    request.send(opts.data)
   }
 
   window._delegate = function (element, type, selector, handler) {
