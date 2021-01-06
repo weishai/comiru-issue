@@ -43,13 +43,12 @@
 
 .search-bar .btn-search {
   display: none;
-  width: 16px;
+  width: 48px;
   height: 40px;
   background: url(../img/icon-search.png) no-repeat center #4284f7;
   background-size: 24px 24px;
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
-  padding-right: 32px;
   cursor: pointer;
 }
 
@@ -348,8 +347,27 @@
 
 /* Mobile */
 @media only screen and (max-width: 600px) {
+  .search-bar .tag-input {
+    border-top-left-radius: 23px;
+    border-bottom-left-radius: 23px;
+  }
+
+  .search-bar .tag-input > input {
+    height: 44px;
+    font-size: 15px;
+  }
+
   .search-bar .btn-search {
+    width: 54px;
+    height: 46px;
     background-image: url(../img/icon-search@2x.png);
+    border-top-right-radius: 23px;
+    border-bottom-right-radius: 23px;
+  }
+
+  .search-bar .tag-input-dropdown {
+    border-bottom-left-radius: 23px;
+  border-bottom-right-radius: 23px;
   }
 
   .newsbox {
@@ -362,7 +380,7 @@
   }
 
   .newsbox .box-name {
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .newsbox .box-title-wrap {
@@ -372,7 +390,7 @@
   }
 
   .newsbox .box-title {
-    font-size: 14px;
+    font-size: 15px;
   }
 
   .newsbox .box-title-wrap::before {
@@ -393,7 +411,7 @@
   }
 
   .newsbox .box-time {
-    font-size: 12px;
+    font-size: 13px;
   }
 
   .pager .btn-page {
@@ -401,6 +419,6 @@
     -ms-flex: 1;
     flex: 1;
     margin: 0 12px;
-    font-size: 13px;
+    padding: 12px 18px;
   }
 }
