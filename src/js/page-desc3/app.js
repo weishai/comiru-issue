@@ -173,7 +173,9 @@
                   '<img class="box-icon lazyload" data-src="'+item.icon+'" alt="">' +
                   '<span class="box-name">'+item.name+'</span>'+
                 '</div>'+
-                '<h3 class="box-title">'+item.title+'</h3>'+
+                '<div class="box-title-wrap">'+
+                  '<h3 class="box-title">'+item.title+'</h3>'+
+                '</div>'+
               '</div>'+
               '<div class="box-cover">'+
                 '<img class="lazyload" data-src="'+item.cover+'" alt="">'+
