@@ -229,7 +229,7 @@
   }
 
   window._debouncer = function (cb, delay) {
-    var inDebounce
+    var timer
 
     delay = delay || 300
 
@@ -237,11 +237,30 @@
       var that = this
       var args = arguments
 
-      clearTimeout(inDebounce)
+      clearTimeout(timer)
 
-      inDebounce = setTimeout(function () {
+      timer = setTimeout(function () {
         cb.apply(that, args)
       }, delay)
+    }
+  }
+
+  window._throttler = function (cb, delay) {
+    var timer
+
+    delay = delay || 100
+
+    return function () {
+      var that = this
+      var args = arguments
+
+      if (!timer) {
+        timer = setTimeout(function () {
+          cb.apply(that, args)
+
+          timer = null
+        }, delay)
+      }
     }
   }
 

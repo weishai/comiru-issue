@@ -8,7 +8,6 @@
   <style>
     .demobox{
       padding: 16px 20px;
-      max-width: 600px;
     }
 
     .demobox .lazyload{
@@ -16,13 +15,24 @@
       height: 720px;
       background-color: #ededed;
     }
+
+    .demobox.scroll-x {
+      min-width: 5000px;
+      display: flex;
+    }
+
+    .demobox.scroll-x .lazyload {
+      margin-right: 18px;
+    }
   </style>
 </head>
 <body>
-  <div class="demobox">
+  <div class="demobox scroll-x">
     <img class="lazyload" data-src="https://cdn.pixabay.com/photo/2020/12/16/10/44/cat-5836297_960_720.jpg" alt="">
     <img class="lazyload" data-src="https://cdn.pixabay.com/photo/2020/10/03/14/54/rock-formations-5623735_960_720.jpg" alt="">
     <img class="lazyload" data-src="https://cdn.pixabay.com/photo/2020/12/08/17/15/christmas-5815034_960_720.jpg" alt="">
+  </div>
+  <div class="demobox">
     <img class="lazyload" data-src="https://cdn.pixabay.com/photo/2020/10/02/13/42/sea-5621174_960_720.jpg" alt="">
     <img class="lazyload" data-src="https://cdn.pixabay.com/photo/2020/11/24/10/37/osaka-5772121_960_720.jpg" alt="">
     <img class="lazyload" data-src="https://cdn.pixabay.com/photo/2020/11/22/16/58/road-5767221_960_720.jpg" alt="">
