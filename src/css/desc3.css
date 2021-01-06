@@ -168,8 +168,8 @@
   -webkit-transform: translate(-100%, -100%);
   -ms-transform: translate(-100%, -100%);
   transform: translate(-100%, -100%);
-  -webkit-box-shadow: -4px 0 12px #fff;
-  box-shadow: -4px 0 12px #fff;
+  -webkit-box-shadow: -10px 0 8px #fff;
+  box-shadow: -10px 0 8px #fff;
   background-color: #fff;
   color: #333;
 }
