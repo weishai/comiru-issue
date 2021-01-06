@@ -296,8 +296,15 @@
           }
         } else {
           // strict mode
-          var pattern = new RegExp(word, 'i')
-          var match = pattern.exec(dataValue)
+          var match
+
+          try {
+            var pattern = new RegExp(word, 'i')
+
+            match = pattern.exec(dataValue)
+
+            // eslint-disable-next-line no-empty
+          } catch (e) {}
 
           if (match) {
             results.push({

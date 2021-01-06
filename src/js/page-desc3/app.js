@@ -24,8 +24,8 @@
       'total|100-1000': 1
     })
 
-    if (params.keyword && params.keyword.value) {
-      var keyword = params.keyword.value
+    if (params.keyword) {
+      var keyword = params.keyword
 
       res.list = res.list.map(function (item) {
         var type = Mock.Random.pick(['name', 'title'])
@@ -99,7 +99,7 @@
         'ontouchend' in document.documentElement === true ? 'touchend' : 'click'
 
       this.TagInput.on('tagAdd', function (e) {
-        var value = e.detail
+        var value = e.detail.value
 
         that.search(value)
       })
@@ -111,7 +111,11 @@
       })
 
       btnSearch.addEventListener(clickEvent, function () {
-        var value = that.TagInput.DOM.input.value
+        var value = that.TagInput.DOM.input.value.trim()
+
+        if (!value) {
+          return
+        }
 
         that.search(value)
       })
