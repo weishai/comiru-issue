@@ -14,7 +14,7 @@
 4. 更新CSS，兼容到IE 11
 
 ## Github地址
-> https://github.com/weishai/comiru-issue
+> [https://github.com/weishai/comiru-issue](https://github.com/weishai/comiru-issue)
 
 ## 查看与第一版提交的Diff
-> https://github.com/weishai/comiru-issue/compare/v1.0...v1.1
+> [https://github.com/weishai/comiru-issue/compare/v1.0...v1.1](https://github.com/weishai/comiru-issue/compare/v1.0...v1.1)
